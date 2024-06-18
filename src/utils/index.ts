@@ -17,7 +17,6 @@ export const parseColor = (color: string): I_Color => {
   } else if (color.startsWith('rgb') || color.startsWith('rgba')) {
     // rgb(0, 0, 0)
     const rgbObj = getRGBFromString(color);
-    console.log('rgbObj: ', rgbObj, componentToHex(Math.round(rgbObj.a!)));
     const hexString = RGBtoHEX(rgbObj) + componentToHex(Math.round(rgbObj.a! * 255));
     hexAlphaArr = cleanHexAlpha(hexString).substr(1).split('');
   } else {
@@ -332,5 +331,4 @@ export const HSVtoRGB = ({ h, s, v }: I_HSV): I_RGB => {
     g: Math.round(g * 255),
     b: Math.round(b * 255),
   };
-  // return 'rgb(' + Math.round(r * 255) + ',' + Math.round(g * 255) + ',' + Math.round(b * 255) + ')'
 };

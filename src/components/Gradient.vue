@@ -3,7 +3,8 @@
     class="gradient-content"
     ref="gradientRef"
     :style="{ backgroundColor: gradientBgColor }"
-    @mousedown="onMouseDown"
+    @mousedown="onMousedown"
+    @touchstart.passive.capture.stop="onMousedown"
   >
     <div class="sat-container"></div>
     <div class="val-container"></div>
@@ -46,26 +47,49 @@
   const gradientRef = ref();
   const gradientCursorRef = ref();
 
-  const onMouseDown = (e: MouseEvent) => {
-    if (e.which !== 1) {
-      return;
-    }
-    registerListeners();
-    setSizePoses();
+  const onMousedown = (e: MouseEvent | TouchEvent) => {
+    if (e instanceof MouseEvent) {
+      // Mouse
+      if (e.which !== 1) {
+        return;
+      }
 
-    if (e.target != gradientCursorRef.value) {
-      handleUpdateCursor(e.offsetX, e.offsetY);
+      registerListeners();
+      setSizePoses();
 
-      e.stopPropagation();
-      e.preventDefault();
+      if (e.target != gradientCursorRef.value) {
+        handleUpdateCursor(e.offsetX, e.offsetY);
+
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    } else {
+      // Touch
+      registerListeners();
+      setSizePoses();
+
+      if (e.target != gradientCursorRef.value && e.target == gradientRef.value) {
+        const offsetX = e.touches[0].pageX - (e.touches[0].target as HTMLElement).offsetLeft;
+        const offsetY = e.touches[0].pageY - (e.touches[0].target as HTMLElement).offsetTop;
+        handleUpdateCursor(offsetX, offsetY);
+      }
     }
   };
-  const onMouseup = () => {
+  const unRegister = () => {
     unregisterListeners();
   };
-  const onMousemove = (e: MouseEvent) => {
-    let posX = e.pageX - gradientLeft.value;
-    let posY = e.pageY - gradientTop.value;
+  const onMousemove = (e: MouseEvent | TouchEvent) => {
+    e.preventDefault();
+    let posX = 0;
+    let posY = 0;
+    if (e instanceof MouseEvent) {
+      posX = e.pageX - gradientLeft.value;
+      posY = e.pageY - gradientTop.value;
+    } else {
+      posX = e.targetTouches[0].pageX - gradientLeft.value;
+      posY = e.targetTouches[0].pageY - gradientTop.value;
+    }
+
     posX = Math.min(gradientWidth.value, Math.max(0, posX));
     posY = Math.min(gradientHeight.value, Math.max(0, posY));
 
@@ -96,12 +120,18 @@
   });
 
   const registerListeners = () => {
-    document.addEventListener('mouseup', onMouseup);
+    document.addEventListener('mouseup', unRegister);
     document.addEventListener('mousemove', onMousemove);
+
+    document.addEventListener('touchend', unRegister, { passive: false });
+    document.addEventListener('touchmove', onMousemove, { passive: false });
   };
   const unregisterListeners = () => {
-    document.removeEventListener('mouseup', onMouseup);
+    document.removeEventListener('mouseup', unRegister);
     document.removeEventListener('mousemove', onMousemove);
+
+    document.removeEventListener('touchend', unRegister);
+    document.removeEventListener('touchmove', onMousemove);
   };
   onBeforeUnmount(() => {
     unregisterListeners();
@@ -114,6 +144,7 @@
     width: 100%;
     height: 168px;
     cursor: pointer;
+    user-select: none;
     overflow: hidden;
   }
   .sat-container,

@@ -1,5 +1,10 @@
 <template>
-  <div ref="hueRef" class="hue-slider" @mousedown="onMousedown">
+  <div
+    ref="hueRef"
+    class="hue-slider"
+    @mousedown="onMousedown"
+    @touchstart.passive.capture.stop="onMousedown"
+  >
     <div ref="hueCursorRef" class="slider-cursor" :style="{ backgroundColor: cursorColor }"></div>
   </div>
 </template>
@@ -26,25 +31,42 @@
   const hueRef = ref();
   const hueCursorRef = ref();
 
-  const onMousedown = (e: MouseEvent) => {
-    if (e.which !== 1) {
-      return;
-    }
-    registerListeners();
-    setSizePoses();
+  const onMousedown = (e: MouseEvent | TouchEvent) => {
+    if (e instanceof MouseEvent) {
+      if (e.which !== 1) {
+        return;
+      }
+      registerListeners();
+      setSizePoses();
 
-    if (e.target != hueCursorRef.value) {
-      handleUpdateCursor(e.offsetX);
+      if (e.target != hueCursorRef.value) {
+        handleUpdateCursor(e.offsetX);
 
-      e.stopPropagation();
-      e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    } else {
+      // Touch
+      registerListeners();
+      setSizePoses();
+
+      if (e.target != hueCursorRef.value && e.target == hueRef.value) {
+        const offsetX = e.touches[0].pageX - (e.touches[0].target as HTMLElement).offsetLeft;
+        handleUpdateCursor(offsetX);
+      }
     }
   };
-  const mouseup = () => {
+  const unRegister = () => {
     unregisterListeners();
   };
-  const mousemove = (e: MouseEvent) => {
-    let pos = e.pageX - hueLeft.value;
+  const onMousemove = (e: MouseEvent | TouchEvent) => {
+    e.preventDefault();
+    let pos = 0;
+    if (e instanceof MouseEvent) {
+      pos = e.pageX - hueLeft.value;
+    } else {
+      pos = e.touches[0].pageX - hueLeft.value;
+    }
     pos = Math.min(hueWidth.value, Math.max(0, pos));
     handleUpdateCursor(pos);
   };
@@ -67,12 +89,18 @@
   });
 
   const registerListeners = () => {
-    document.addEventListener('mouseup', mouseup);
-    document.addEventListener('mousemove', mousemove);
+    document.addEventListener('mouseup', unRegister);
+    document.addEventListener('mousemove', onMousemove);
+
+    document.addEventListener('touchend', unRegister, { passive: false });
+    document.addEventListener('touchmove', onMousemove, { passive: false });
   };
   const unregisterListeners = () => {
-    document.removeEventListener('mouseup', mouseup);
-    document.removeEventListener('mousemove', mousemove);
+    document.removeEventListener('mouseup', unRegister);
+    document.removeEventListener('mousemove', onMousemove);
+
+    document.removeEventListener('touchend', unRegister);
+    document.removeEventListener('touchmove', onMousemove);
   };
   onBeforeUnmount(() => {
     unregisterListeners();
@@ -86,6 +114,7 @@
     width: 100%;
     height: 8px;
     cursor: pointer;
+    user-select: none;
     background-image: linear-gradient(
       90deg,
       red 0,

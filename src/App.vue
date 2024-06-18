@@ -5,7 +5,6 @@
       <div class="color-panel">
         <ColorPanel v-model:value="color" />
       </div>
-      <div></div>
     </div>
   </div>
 </template>
@@ -14,7 +13,7 @@
   import { ref } from 'vue';
   import ColorPanel from '@/components/ColorPanel.vue';
 
-  const color = ref('rgb(210,105,30)');
+  const color = ref('burlywood');
 </script>
 
 <style scoped>

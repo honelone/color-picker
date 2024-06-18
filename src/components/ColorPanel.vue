@@ -146,11 +146,8 @@
 
   /** Select Swatch */
   const handleSelectSwatch = (hex: string, a = 1) => {
-    // console.log('handleSelectSwatch', hex)
     const { r, g, b } = HEXtoRGB(hex);
-    // console.log({ r, g, b })
     const { h, s, v } = RGBtoHSV({ r, g, b });
-    // console.log({ h, s, v })
     hue.value = h;
     sat.value = s;
     val.value = v;
