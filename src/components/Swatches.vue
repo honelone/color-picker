@@ -14,6 +14,7 @@
 <script lang="tsx" setup>
   import { computed } from 'vue';
   import { parseColor } from '@/utils';
+  import { colorKeywords } from '@/data';
 
   const props = withDefaults(
     defineProps<{
@@ -31,24 +32,7 @@
   }>();
 
   const swatchesLazy = computed(() => {
-    const defaultSwatches = [
-      '#56CCF2',
-      '#4BDDD4',
-      '#61F0E7',
-      '#49F397',
-      '#96E24A',
-      '#F1E257',
-      '#FCB17A',
-      '#EB5C5C',
-      '#DD789C',
-      '#F563DE',
-      '#C18AF7',
-      '#8177F5',
-      '#9F71B5',
-      '#A9A1C0',
-      '#CEA3F9',
-      '#4792E6',
-    ];
+    const defaultSwatches = getRandomValues(16);
     if (props.showOpacity) {
       return props.swatches ?? defaultSwatches.map((item) => item + 'FF');
     } else {
@@ -63,6 +47,11 @@
     } else {
       emits('select', hex);
     }
+  };
+
+  const getRandomValues = (count: number) => {
+    const shuffled = Object.values(colorKeywords).sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
   };
 </script>
 
