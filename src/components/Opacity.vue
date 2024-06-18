@@ -94,7 +94,7 @@
     opacityLeft.value = boundingRectOpacityLine.left;
   };
   const setCursor = () => {
-    const pos = props.alpha * opacityWidth.value ?? 0;
+    const pos = props.alpha * (opacityWidth.value ?? 0);
     alphaCursorRef.value.style.transform = `translate(${pos}px, 0px)`;
   };
   defineExpose({
@@ -154,8 +154,6 @@
     border-radius: 50%;
     width: 12px;
     height: 12px;
-    /* background-color: #fff; */
-    /* pointer-events: none; */
     cursor: e-resize;
     user-select: none;
     box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);

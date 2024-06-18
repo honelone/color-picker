@@ -135,8 +135,6 @@
     border-radius: 50%;
     width: 12px;
     height: 12px;
-    /* background-color: #fff; */
-    /* pointer-events: none; */
     cursor: e-resize;
     user-select: none;
     box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);

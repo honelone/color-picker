@@ -172,7 +172,6 @@
     width: 14px;
     height: 14px;
     background-color: #fff;
-    /* pointer-events: none; */
     cursor: move;
     user-select: none;
   }
