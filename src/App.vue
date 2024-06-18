@@ -14,7 +14,7 @@
   import { ref } from 'vue';
   import ColorPanel from '@/components/ColorPanel.vue';
 
-  const color = ref('#f2f5f7');
+  const color = ref('rgb(210,105,30)');
 </script>
 
 <style scoped>
@@ -44,7 +44,7 @@
   }
 
   .preview-content .tips {
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: bold;
     color: #fff;
     mix-blend-mode: difference;

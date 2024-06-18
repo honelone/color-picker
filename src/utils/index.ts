@@ -11,6 +11,20 @@ export const componentToHex = (c: number): string => {
 export const parseColor = (color: string): I_Color => {
   let hexAlphaArr = [];
   hexAlphaArr = cleanHexAlpha(color).substr(1).split('');
+  if (color.startsWith('#')) {
+    // #000000
+    hexAlphaArr = cleanHexAlpha(color).substr(1).split('');
+  } else if (color.startsWith('rgb') || color.startsWith('rgba')) {
+    // rgb(0, 0, 0)
+    const rgbObj = getRGBFromString(color);
+    console.log('rgbObj: ', rgbObj, componentToHex(Math.round(rgbObj.a!)));
+    const hexString = RGBtoHEX(rgbObj) + componentToHex(Math.round(rgbObj.a! * 255));
+    hexAlphaArr = cleanHexAlpha(hexString).substr(1).split('');
+  } else {
+    // Keywords
+    const hexString = colorKeywords?.[color] ?? '#000000FF';
+    hexAlphaArr = cleanHexAlpha(hexString).substr(1).split('');
+  }
 
   const h = hexAlphaArr[0] + hexAlphaArr[1];
   const e = hexAlphaArr[2] + hexAlphaArr[3];
@@ -75,6 +89,32 @@ const validateHexChar = (c: string): string => {
     return c;
   }
 };
+const getRGBFromString = (color: string): I_RGB => {
+  const regex = /rgba?\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3})(?:,\s*([\d.]+))?\)/;
+  const match = color.match(regex);
+
+  if (match) {
+    const r = match[1];
+    const g = match[2];
+    const b = match[3];
+    const a = match[4] || 1;
+
+    return {
+      r: Number(r),
+      g: Number(g),
+      b: Number(b),
+      a: Number(a),
+    };
+  } else {
+    return {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 1,
+    };
+  }
+};
+
 /** calculate Line Color */
 export const calculateLineColor = (linePos: number, lineWidth: number): I_RGB => {
   const percent = linePos / lineWidth;
