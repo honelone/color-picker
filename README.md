@@ -1,33 +1,26 @@
 # color-picker
 
-This template should help get you started developing with Vue 3 in Vite.
+- 使用`Vue3`实现的颜色选择器
 
-## Recommended IDE Setup
+## 安装
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
+```shell
+npm i @honelone/color-picker
 ```
 
-### Compile and Hot-Reload for Development
+### 使用
 
-```sh
-pnpm dev
+- `color`: 支持大部分颜色值，支持`hex`颜色值，支持`rgba`颜色值
+
+```vue
+<template>
+  <ColorPanel v-model="color" />
+</template>
+<script setup>
+  import { ref } from 'vue';
+  import { ColorPanel } from '@honelone/color-picker';
+  const color = ref('#f2f5f7');
+</script>
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
+> 需要注意的是，仅包含主题内容，外层样式请自行添加
