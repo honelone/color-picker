@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
   import { computed, onBeforeUnmount, ref } from 'vue';
   import { HUEtoRGB } from '@/utils';
 

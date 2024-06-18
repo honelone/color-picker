@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
   import { computed, nextTick, onMounted, ref, watch } from 'vue';
   import Gradient from './Gradient.vue';
   import Hue from './Hue.vue';

@@ -1,6 +1,6 @@
 {
   "name": "@honelone/color-picker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vue3 Color Picker",
   "keywords": [
     "vue3",
@@ -9,7 +9,6 @@
   ],
   "author": "Composition",
   "license": "ISC",
-  "private": true,
   "homepage": "https://github.com/honelone/color-picker",
   "repository": {
     "type": "git",
@@ -18,7 +17,20 @@
   "bugs": {
     "url": "https://github.com/honelone/color-picker/issues"
   },
-  "main": "index.js",
+  "main": "dist/color-picker.umd.cjs",
+  "module": "dist/color-picker.js",
+  "exports": {
+    ".": {
+      "import": "./dist/color-picker.js",
+      "require": "./dist/color-picker.umd.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -38,6 +50,7 @@
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.0",
     "vite": "^5.2.8",
+    "vite-plugin-style-inject": "^0.0.1",
     "vue-tsc": "^2.0.11"
   }
 }

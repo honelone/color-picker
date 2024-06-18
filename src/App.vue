@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
   import { ref } from 'vue';
   import ColorPanel from '@/components/ColorPanel.vue';
 

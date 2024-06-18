@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
   import { computed } from 'vue';
   import { parseColor } from '@/utils';
   import { colorKeywords } from '@/data';

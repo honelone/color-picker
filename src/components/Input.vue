@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script lang="tsx" setup>
+<script lang="ts" setup>
   import { ref, nextTick, watch, reactive } from 'vue';
   import { HSVtoRGB, HEXtoRGB, parseColor, RGBtoHSV, RGBtoHEX } from '@/utils';
 
