@@ -2,6 +2,10 @@
 
 - 使用`Vue3`实现的颜色选择器
 
+# 示例
+
+- https://honelone.github.io/color-picker/
+
 ## 安装
 
 ```shell
