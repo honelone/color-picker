@@ -65,26 +65,26 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  # 发包
-  publish-npm:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-      - name: Install dependencies
-        run: pnpm i
-      - name: Build-Publish
-        run: pnpm build-publish
-      - name: Update version
-        run: pnpm version minor
-      - name: Publish
-        run: pnpm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+  # # 发包
+  # publish-npm:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 20
+  #         registry-url: https://registry.npmjs.org/
+  #     - name: Install pnpm
+  #       uses: pnpm/action-setup@v4
+  #       with:
+  #         version: 8
+  #     - name: Install dependencies
+  #       run: pnpm i
+  #     - name: Build-Publish
+  #       run: pnpm build-publish
+  #     - name: Update version
+  #       run: pnpm version minor
+  #     - name: Publish
+  #       run: pnpm publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
