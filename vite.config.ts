@@ -5,6 +5,7 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/color-picker/',
   plugins: [vue(), cssInjectedByJsPlugin()],
   resolve: {
     alias: {
@@ -13,13 +14,19 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: 'src/index.ts',
+      entry: 'src/main.ts',
       name: 'ColorPicker',
       fileName: 'color-picker',
     },
     rollupOptions: {
       external: ['vue'],
       output: {
+        // manualChunks(id) {
+        //   console.log(id);
+        //   if (id.includes('ColorPicker')) {
+        //     return 'color-picker';
+        //   }
+        // },
         globals: {
           vue: 'Vue',
         },

@@ -29,7 +29,7 @@
     "access": "public"
   },
   "files": [
-    "dist"
+    "dist/assets/color-picker-DA2GdtXs.js"
   ],
   "type": "module",
   "scripts": {

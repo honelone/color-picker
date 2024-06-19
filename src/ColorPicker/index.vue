@@ -48,7 +48,7 @@
   import Opacity from './Opacity.vue';
   import Input from './Input.vue';
   import Swatches from './Swatches.vue';
-  import { HSVtoRGB, HEXtoRGB, parseColor, RGBtoHSV, RGBtoHEX, componentToHex } from '@/utils';
+  import { HSVtoRGB, HEXtoRGB, parseColor, RGBtoHSV, RGBtoHEX, componentToHex } from './utils';
 
   const props = withDefaults(
     defineProps<{

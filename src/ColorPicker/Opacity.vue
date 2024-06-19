@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
   import { computed, onBeforeUnmount, ref } from 'vue';
-  import { HSVtoRGB } from '@/utils';
+  import { HSVtoRGB } from './utils';
 
   const props = defineProps<{
     width: number;

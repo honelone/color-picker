@@ -3,7 +3,7 @@
     <div class="preview-content" :style="{ 'background-color': color }">
       <div class="tips">{{ 'Color Picker' }}</div>
       <div class="color-panel">
-        <ColorPanel v-model:value="color" />
+        <ColorPicker v-model:value="color" />
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import ColorPanel from '@/components/ColorPanel.vue';
+  import { ColorPicker } from './ColorPicker';
 
   const color = ref('burlywood');
 </script>

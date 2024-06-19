@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
   import { computed, onBeforeUnmount, ref } from 'vue';
-  import { HUEtoRGB } from '@/utils';
+  import { HUEtoRGB } from './utils';
 
   const props = defineProps<{
     width: number;

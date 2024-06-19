@@ -13,8 +13,8 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { parseColor } from '@/utils';
-  import { colorKeywords } from '@/data';
+  import { parseColor } from './utils';
+  import { colorKeywords } from './data';
 
   const props = withDefaults(
     defineProps<{

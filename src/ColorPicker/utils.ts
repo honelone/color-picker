@@ -1,5 +1,5 @@
-import { colorKeywords } from '@/data';
-import type { I_Color, I_HSV, I_RGB } from '@/types';
+import { colorKeywords } from './data';
+import type { I_Color, I_HSV, I_RGB } from './types';
 
 /** To HEX */
 export const componentToHex = (c: number): string => {

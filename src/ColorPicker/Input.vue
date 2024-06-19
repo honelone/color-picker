@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
   import { ref, nextTick, watch, reactive } from 'vue';
-  import { HSVtoRGB, HEXtoRGB, parseColor, RGBtoHSV, RGBtoHEX } from '@/utils';
+  import { HSVtoRGB, HEXtoRGB, parseColor, RGBtoHSV, RGBtoHEX } from './utils';
 
   const props = defineProps<{
     hue: number;
