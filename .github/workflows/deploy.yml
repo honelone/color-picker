@@ -79,11 +79,12 @@ jobs:
         with:
           version: 8
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i
       - name: Build-Publish
         run: pnpm build-publish
-      - name: pub
-        run: pnpm run pub
+      - name: Update version
+        run: pnpm version minor
+      - name: Publish
+        run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-          
