@@ -69,19 +69,21 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: 'npm'
+          node-version: 20
           registry-url: https://registry.npmjs.org/
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
       - name: Install dependencies
-        run: npm i
+        run: pnpm install
       - name: Build-Publish
         run: pnpm build-publish
-      - name: Update version
-        run: npm version minor
-      - name: Publish
-        run: npm publish
+      - name: pub
+        run: pnpm run pub
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          

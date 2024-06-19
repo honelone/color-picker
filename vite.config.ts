@@ -7,22 +7,23 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 export default () => {
   const isPublish = process.argv.includes('publish');
 
-  const build: any = {
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
+  let build: any = {};
+  if (isPublish) {
+    build = {
+      lib: {
+        entry: 'src/ColorPicker/index.ts',
+        name: 'ColorPicker',
+        fileName: 'color-picker',
+        formats: ['es', 'umd'],
+      },
+      rollupOptions: {
+        external: ['vue'],
+        output: {
+          globals: {
+            vue: 'Vue',
+          },
         },
       },
-    },
-  };
-  if (isPublish) {
-    build.lib = {
-      entry: 'src/ColorPicker/index.ts',
-      name: 'ColorPicker',
-      fileName: 'color-picker',
-      formats: ['es', 'umd'],
     };
   }
 
