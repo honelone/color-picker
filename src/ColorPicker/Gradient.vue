@@ -156,11 +156,11 @@
     bottom: 0;
   }
   .sat-container {
-    background-image: linear-gradient(90deg, #ffffff, rgb(204 154 129 / 0%));
+    background-image: linear-gradient(90deg, #ffffff, transparent);
   }
 
   .val-container {
-    background-image: linear-gradient(0deg, #000000, rgb(204 154 129 / 0%));
+    background-image: linear-gradient(0deg, #000000, transparent);
   }
 
   .cursor-container {
