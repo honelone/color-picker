@@ -18,11 +18,12 @@ npm i @honelone/color-picker
 
 ```vue
 <template>
-  <ColorPanel v-model="color" />
+  <ColorPicker v-model:color="color" />
+  <ColorPanel v-model:color="color" />
 </template>
 <script setup>
   import { ref } from 'vue';
-  import { ColorPanel } from '@honelone/color-picker';
+  import { ColorPicker, ColorPanel } from '@honelone/color-picker';
   const color = ref('#f2f5f7');
 </script>
 ```

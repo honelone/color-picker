@@ -52,18 +52,18 @@
 
   const props = withDefaults(
     defineProps<{
-      value: string;
+      color: string;
       width?: number;
       showOpacity?: boolean;
     }>(),
     {
-      value: '',
+      color: '',
       width: 240,
       showOpacity: true,
     },
   );
   const emits = defineEmits<{
-    (event: 'update:value', params: any): void;
+    (event: 'update:color', params: any): void;
     (event: 'change', params: any): void;
   }>();
 
@@ -95,7 +95,7 @@
 
   watch(currentColor, () => {
     nextTick(() => {
-      emits('update:value', currentColor.value);
+      emits('update:color', currentColor.value);
       emits('change', currentColor.value);
       setUI();
     });
@@ -107,8 +107,8 @@
     });
   });
   const init = () => {
-    if (props.value) {
-      const { hex: newHex, a } = parseColor(props.value);
+    if (props.color) {
+      const { hex: newHex, a } = parseColor(props.color);
       const { r, g, b } = HEXtoRGB(newHex);
       const { h, s, v } = RGBtoHSV({ r, g, b });
       hue.value = h;
@@ -122,6 +122,12 @@
       setUI();
     });
   };
+  watch(
+    () => props.color,
+    () => {
+      init();
+    },
+  );
 
   /** Set UI */
   const gradientRef = ref();
